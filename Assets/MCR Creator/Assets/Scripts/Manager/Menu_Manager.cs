@@ -85,17 +85,19 @@ public class Menu_Manager : MonoBehaviour {
 
 // --> Button on Menu call this function to go to a new page with his number on list
 	public void GoToOtherPageWithHisNumber(int newCanvasNumber){
-		if (!b_Coutine) {
-			Coroutine = MoveToPosition (List_GroupCanvas [CurrentPage], List_GroupCanvas [newCanvasNumber]);
+		if (b_Coutine) return;
 
-			for (int i = 0; i < List_GroupCanvas.Count; i++) {
-				if (List_GroupCanvas [i] == List_GroupCanvas [newCanvasNumber]) {
-					CurrentPage = i;
-					break;
-				}
+		if (List_GroupCanvas.Count <= newCanvasNumber || List_GroupCanvas[newCanvasNumber] == null) return;
+		
+		Coroutine = MoveToPosition (List_GroupCanvas [CurrentPage], List_GroupCanvas [newCanvasNumber]);
+	
+		for (int i = 0; i < List_GroupCanvas.Count; i++) {
+			if (List_GroupCanvas [i] == List_GroupCanvas [newCanvasNumber]) {
+				CurrentPage = i;
+				break;
 			}
-			StartCoroutine (Coroutine);
 		}
+		StartCoroutine (Coroutine);
 	}
 
 

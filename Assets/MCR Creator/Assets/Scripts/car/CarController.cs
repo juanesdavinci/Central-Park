@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour
     public float offsetWheelRear = 1;                       // use to set the wheel model position
 
     public Vector3 eulerAngleVelocity;
-    public float Force = 120;                       // force apply to car when acceleration is activated
+    public float Force = 1200;                       // force apply to car when acceleration is activated
     public float BrakeForce = 35;                       // natural car break force
 
     public Transform t_ApplyForce;
@@ -1163,20 +1163,20 @@ public class CarController : MonoBehaviour
 
                     if (!StopAcceleration)
                     {
-                        ReachMaxRotationAcc = Mathf.MoveTowards(ReachMaxRotationAcc, 1, Time.deltaTime * 2);
+                        ReachMaxRotationAcc = Mathf.MoveTowards(ReachMaxRotationAcc, 1, Time.deltaTime/10);
                         if (!raceIsFinished && !b_CountdownActivate)
                         {
-                            if (b_AutoAcceleration && b_MaxAccelerationAfterCountdown)
+                            /*if (b_AutoAcceleration && b_MaxAccelerationAfterCountdown)
                             {
                                 b_MaxAccelerationAfterCountdown = false;
                                 Input_Acceleration = 1;
                                 tmpmulti = 1;
                                 CoeffZ = refCoeffZ_Max;
                                 ReachMaxRotationAcc = 1;
-                            }
+                            }*/
 
                             if (b_IsMine)
-                                rb.AddForceAtPosition(rb.transform.forward * tmpmulti * Force * 1 * curveAcceleration.Evaluate(ReachMaxRotationAcc) * Input_Acceleration, tmpVect, ForceMode.Force);
+                                rb.AddForceAtPosition(rb.transform.forward * tmpmulti * Force * curveAcceleration.Evaluate(ReachMaxRotationAcc) * Input_Acceleration, tmpVect, ForceMode.Force);
                         }
                     }
                 }
