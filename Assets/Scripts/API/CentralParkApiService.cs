@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 public class CentralParkApiService : Singleton<CentralParkApiService>
 {
     private string scheme = "http";
-    private string domain = "http://central-park-api.herokuapp.com";
+    private string domain = "central-park-api.herokuapp.com";
 
     public string GetScheme()
     {
