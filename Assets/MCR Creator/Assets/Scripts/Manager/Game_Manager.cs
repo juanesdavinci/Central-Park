@@ -108,9 +108,9 @@ public class Game_Manager : MonoBehaviour {
         #region
         if (lapcounter != null) {
 			if (Player1LapCounter)
-				Player1LapCounter.GetComponent<Text> ().text = "Lap 1/" + lapcounter.lapNumber;
+				Player1LapCounter.GetComponent<Text> ().text = "Vuelta 1/" + lapcounter.lapNumber;
 			if (Player2LapCounter)
-				Player2LapCounter.GetComponent<Text> ().text = "Lap 1/" + lapcounter.lapNumber;
+				Player2LapCounter.GetComponent<Text> ().text = "Vuelta 1/" + lapcounter.lapNumber;
 
            
 		}

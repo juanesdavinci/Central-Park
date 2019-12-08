@@ -192,8 +192,9 @@ public class UIButtons : MonoBehaviour {
 
 
 	public void LoadASceneWhenPlayIsPressed_MainMenu(){																	// Call when button Play is pressed on Main Menu
+		StartCoroutine ("AsynchronousLoad");
+		return;
 		if (!b_lock) {
-			StartCoroutine ("AsynchronousLoad");
 		}
 		else
 			Unlock_A_Lock();
@@ -223,14 +224,14 @@ public class UIButtons : MonoBehaviour {
 	{
 		/*if(Loading_Screen){
 			Loading_Screen.gameObject.SetActive(true);													// Activate the loading screen
-		}*/
-
+		}
 		if (menuManager != null) {
 			menuManager.GoToOtherPageWithHisNumber (10);
-		}
+		}*/
+
 		yield return new WaitForEndOfFrame();
 
-		AsyncOperation a = SceneManager.LoadSceneAsync(obj_MainMenu.SceneName[obj_MainMenu.CurrentScene]);				// Load a scene
+		AsyncOperation a = SceneManager.LoadSceneAsync(2);				// Load a scene
 
 		a.allowSceneActivation = false;																					// Do not activated the loading until allowSceneActivation = true 
 
