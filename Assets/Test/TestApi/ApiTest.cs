@@ -34,12 +34,14 @@ public class ApiTest : MonoBehaviour
     {
         CentralParkApiService.Instance.AddUser(this.username, this.score, delegate (ApiUserResponse response)
         {
-
+            //Success response
             this.userSaved = response.user;
 
         }, delegate (Exception e)
         {
             Debug.LogError(e);
+            //Do something.
+            //This is triggered when HTTP request faild. That's also mean when don't have itnernet connection
         });
     }
 
@@ -47,12 +49,14 @@ public class ApiTest : MonoBehaviour
     {
         CentralParkApiService.Instance.GetLeaderboard(this.limit, delegate (ApiLeaderboardResponse response)
         {
-
+            //Success response
             this.leaderboard = response.leaderboard;
 
         }, delegate (Exception e)
         {
             Debug.LogError(e);
+            //Do something.
+            //This is triggered when HTTP request faild. That's also mean when don't have itnernet connection
         });
     }
 }
