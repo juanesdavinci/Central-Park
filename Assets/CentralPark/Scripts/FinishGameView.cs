@@ -10,6 +10,7 @@ public class FinishGameView : MonoBehaviour
     public Text ResoultsTxt;
 
     public LapCounter LapCounter;
+    public ApiTest ApiTest;
     
     // Start is called before the first frame update
     void Start()
@@ -47,5 +48,8 @@ public class FinishGameView : MonoBehaviour
                 timeTxt.text = seconds + ":" + milliseconds;
             else
                 timeTxt.text = minutes + ":" + seconds + ":" + milliseconds;
+
+        ApiTest.score = score;
+        ApiTest.time = (int)time;
     }
 }

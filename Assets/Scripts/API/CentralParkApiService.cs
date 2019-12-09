@@ -32,7 +32,7 @@ public class CentralParkApiService : Singleton<CentralParkApiService>
     }
 
 
-    public HTTPRequest AddUser(string username, int score, Action<ApiUserResponse> successCallback, Action<Exception> errorCallback)
+    public HTTPRequest AddUser(string username, int score, int time, Action<ApiUserResponse> successCallback, Action<Exception> errorCallback)
     {
         string path = "/user";
 
@@ -40,6 +40,7 @@ public class CentralParkApiService : Singleton<CentralParkApiService>
 
         postData.Add("username", username);
         postData.Add("score", score.ToString());
+        postData.Add("timePlayed", time.ToString());
 
         return this.DoRequest(HTTPMethods.Post, path, successCallback, errorCallback, postData);
     }

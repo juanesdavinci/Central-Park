@@ -288,7 +288,7 @@ public class CarController : MonoBehaviour
         #endregion
 
 
-        MaxSpeed = 50;
+        MaxSpeed = 80;
     }
 
     IEnumerator MCR_I_audioFadeIn(){
