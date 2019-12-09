@@ -35,7 +35,7 @@ public class CarController : MonoBehaviour
     public KeyCode key_Respawn = KeyCode.H;
 
 
-    public float MaxSpeed = 3F;                     // car maximumu speed
+    public float MaxSpeed = 10F;                     // car maximumu speed
     public float offsetSpeedDifficultyManager = 0;          // car offset speed. Set in Difficulty Manager
     public float offsetSpeedForMobile = 0;                  // car offset speed. Set in Game_Manager Manager
     public float CarRotationSpeed = 1.5F;                       // car rotation speed
@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour
     public float offsetWheelRear = 1;                       // use to set the wheel model position
 
     public Vector3 eulerAngleVelocity;
-    public float Force = 1200;                       // force apply to car when acceleration is activated
+    public float Force = 20f;                       // force apply to car when acceleration is activated
     public float BrakeForce = 35;                       // natural car break force
 
     public Transform t_ApplyForce;
@@ -209,7 +209,7 @@ public class CarController : MonoBehaviour
     public bool b_AccelerationImpact = false;
 
 
-
+    public PlayerAnimation PlayerAnimation;
 
     // Section: Multiplayer Photon
     public bool b_IsMine = false;
@@ -253,6 +253,7 @@ public class CarController : MonoBehaviour
         audio_ = audio_.gameObject.GetComponent<AudioSource>();
         objSkid_Sound = objSkid_Sound.gameObject.GetComponent<AudioSource>();
         obj_CarImpact_Sound = obj_CarImpact_Sound.gameObject.GetComponent<AudioSource>();
+        PlayerAnimation = gameObject.GetComponent<PlayerAnimation>();
 
         if (this.GetComponent<CarAI>())
             carAI = this.GetComponent<CarAI>();
@@ -287,7 +288,7 @@ public class CarController : MonoBehaviour
         #endregion
 
 
-       
+        MaxSpeed = 50;
     }
 
     IEnumerator MCR_I_audioFadeIn(){
@@ -769,7 +770,15 @@ public class CarController : MonoBehaviour
         if (other.tag == "RespawnZone")
         {
             RespawnTheCar();
+        }else if (other.CompareTag("coin"))
+        {
+            other.gameObject.SetActive(false);
+            if (playerNumber == 1)
+            {
+                Coin.Instance.AddCoin();
+            }
         }
+        
 
     }
 
@@ -808,6 +817,33 @@ public class CarController : MonoBehaviour
 
 
 
+    void MCR_carV1_old()
+    {
+        float verticalAxis = Input.GetAxis("Vertical");
+        float horizontalAxis = Input.GetAxis("Horizontal");
+
+        if (verticalAxis > 0)
+        {
+            // forward
+            if (Speed < MaxSpeed)
+            {
+                Speed += Force;
+            }
+            else
+            {
+                Speed = MaxSpeed;
+            }
+        }
+        else
+        {
+            Speed = Mathf.Lerp(Speed, 0f, Time.deltaTime * 5f);
+        }
+       
+        // Apply currentspeed as rigidbody velocity
+        rb.velocity = transform.forward * Speed;
+        Debug.Log(Speed + " --- " +rb.velocity);
+    }
+    
 
     void MCR_carV1()
     {
@@ -965,26 +1001,25 @@ public class CarController : MonoBehaviour
             }
 
 
-
             // --> create a fake rotation on car body when car turn left or right
             if (rb.velocity.magnitude > .2f && (turnDirection == 1 && !b_AutoAcceleration || turnDirection == 1 && b_AutoAcceleration && Mathf.Abs(carAI.angle) > 10))
             {                   // --> fake z body rotation
                 if (onlineNoFakeRotation) { }
                 else if (b_AutoAcceleration) tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, -1 * (BodyRotationValue + 2), 10 * Time.deltaTime);                            // car AI
-                else tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, -1 * BodyRotationValue, 100 * Time.deltaTime);                        // player
-
+                else tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, -1 * BodyRotationValue, 10 * Time.deltaTime);                        // player
+ 
             }
             else if (rb.velocity.magnitude > .2f && (turnDirection == -1 && !b_AutoAcceleration || turnDirection == -1 && b_AutoAcceleration && Mathf.Abs(carAI.angle) > 10))
             {
                 if (onlineNoFakeRotation) { }
                 else if (b_AutoAcceleration) tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, BodyRotationValue + 2, 10 * Time.deltaTime);                           // car Ai
-                else tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, BodyRotationValue, 100 * Time.deltaTime);                         // Player
+                else tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, BodyRotationValue, 10 * Time.deltaTime);                         // Player
             }
             else
             {
                 if (onlineNoFakeRotation) { }
                 else if (b_AutoAcceleration) tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, 0, 10 * Time.deltaTime);                           // car AI
-                else tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, 0, 100 * Time.deltaTime);                         // player
+                else tmpFakeBodyRotation = Mathf.MoveTowards(tmpFakeBodyRotation, 0, 10 * Time.deltaTime);                         // player
             }
 
 
@@ -993,7 +1028,7 @@ public class CarController : MonoBehaviour
                 Grp_BodyPlusBlobShadow.transform.localEulerAngles.y,
                 tmpFakeBodyRotation);
 
-
+            PlayerAnimation.SetDirection(turnDirection);
 
             NumberOfWheelThatTouchGround = 0;
             Vector3 localVelocity = rb.transform.InverseTransformDirection(rb.velocity);
@@ -1145,7 +1180,7 @@ public class CarController : MonoBehaviour
 
                 if (Input_Acceleration < 0)
                 {
-                    tmpmulti = Mathf.Lerp(tmpmulti, .25F, Time.fixedDeltaTime * 4);
+                    tmpmulti = Mathf.Lerp(tmpmulti, .25F, Time.fixedDeltaTime);
                 }
                 else if (Input_Acceleration > 0)
                 {
@@ -1154,7 +1189,6 @@ public class CarController : MonoBehaviour
 
                 // -> Car Acceleration
                 if (b_btn_Acce
-                    || b_btn_Break
                     || !b_AutoAcceleration && Mathf.Abs(Input.GetAxisRaw(Input_Accelerator)) > .5F
                     || !b_AutoAcceleration && Mathf.Abs(Input.GetAxisRaw(Input_Break)) > .5F
                     || !b_AutoAcceleration && Input.GetKey(key_Up) && !b_AccelerationImpact
@@ -1176,7 +1210,9 @@ public class CarController : MonoBehaviour
                             }*/
 
                             if (b_IsMine)
+                            {
                                 rb.AddForceAtPosition(rb.transform.forward * tmpmulti * Force * curveAcceleration.Evaluate(ReachMaxRotationAcc) * Input_Acceleration, tmpVect, ForceMode.Force);
+                            }
                         }
                     }
                 }
@@ -1370,6 +1406,8 @@ public class CarController : MonoBehaviour
             {
                 rb.velocity = rb.velocity.normalized * (MaxSpeed + randomSpeedOffset + offsetSpeedDifficultyManager + offsetSpeedForMobile);
             }
+
+            PlayerAnimation.SetSpeed(rb.velocity.magnitude/5);
         }
 
 

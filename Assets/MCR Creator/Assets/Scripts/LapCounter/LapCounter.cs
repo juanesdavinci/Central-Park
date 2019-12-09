@@ -382,7 +382,7 @@ public class LapCounter : MonoBehaviour {
                                     if (carPathFollow.iLapCounter <= lapNumber + 1)
                                     {
                                     Debug.Log("Lap");
-                                        Txt_P1_Lap.text = "Lap " + (gManagerPhoton.tmpCarList[j].GetComponent<CarPathFollow>().iLapCounter).ToString() + "/" + lapNumber.ToString();
+                                        Txt_P1_Lap.text = "Vuelta " + (gManagerPhoton.tmpCarList[j].GetComponent<CarPathFollow>().iLapCounter).ToString() + "/" + lapNumber.ToString();
                                     }
                                 }
                             }
@@ -399,11 +399,11 @@ public class LapCounter : MonoBehaviour {
                     {
                         if (car[0] != null && car[0].gameObject == other.gameObject && Txt_P1_Lap)
                         {
-                            Txt_P1_Lap.text = "Lap " + (car[0].iLapCounter).ToString() + "/" + lapNumber.ToString();
+                            Txt_P1_Lap.text = "Vuelta " + (car[0].iLapCounter).ToString() + "/" + lapNumber.ToString();
                         }
                         if (car[1] != null && car[1].name == other.name && Txt_P2_Lap)
                         {
-                            Txt_P2_Lap.text = "Lap " + (car[1].iLapCounter).ToString() + "/" + lapNumber.ToString();
+                            Txt_P2_Lap.text = "Vuelta " + (car[1].iLapCounter).ToString() + "/" + lapNumber.ToString();
                         }
                     }
 
@@ -414,6 +414,7 @@ public class LapCounter : MonoBehaviour {
 		if (b_ActivateLapCounter) {
 			if (other.tag == "Car" && carPathFollow.iLapCounter >= lapNumber+1) {												// A car finish the race
 				//Debug.Log (other.name + " finished the race");
+				gameManager.WinningCar(other);
 				for (var i = 0; i < car.Count; i++) {
                     if (car[i] != null && car[i].gameObject == other.gameObject && raceFinished[i])
                     {

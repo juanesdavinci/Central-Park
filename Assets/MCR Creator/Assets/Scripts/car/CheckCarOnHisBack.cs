@@ -36,7 +36,7 @@ public class CheckCarOnHisBack : MonoBehaviour {
 		}
 
 		//Debug.Log("Car need to be respawn");
-		carController.RespawnTheCar();
+		//carController.RespawnTheCar();
 	}
 
 	void Pause(){

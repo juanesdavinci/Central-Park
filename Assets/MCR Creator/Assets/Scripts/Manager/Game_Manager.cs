@@ -29,8 +29,6 @@ public class Game_Manager : MonoBehaviour {
 	public Menu_Manager					canvas_MainMenu;									// access Menu_Manager component
 	public EventSystem 					eventSystem;										// access eventsystem component
 	public StandaloneInputModule 		inputModule;										// access StandaloneInputModule component
-	public GameObject  					buttonRestartGame_FirstSelectedGameObject;			// access some gameObjects on scene
-    public GameObject                   buttonNextPage_FirstSelectedGameObjectChampionship;            // access some gameObjects on scene
 
 
 	public GameObject  					buttonValidateLetter_FirstSelectedGameObject;
@@ -58,7 +56,13 @@ public class Game_Manager : MonoBehaviour {
     public float                        offsetRoadAi = .4f;
     public float                        randomRangeOffsetRoadAI = .1f;
 
-    //public bool multiplayer = false;
+
+	public GameObject MobileImputCanvas;
+	public GameObject GameInfoCanvas;
+	public GameObject FinishedRaceCanvas;
+	public CarController winningCar;
+
+	//public bool multiplayer = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -203,8 +207,6 @@ public class Game_Manager : MonoBehaviour {
 
 // --> Arcade race is finished. Display result Page
 	IEnumerator WinProcessARcade(){
-        #region
-        if(canvas_MainMenu)canvas_MainMenu.GoToOtherPageWithHisNumber (10);								// Congratulation page
 
         float t = 0;
 
@@ -214,27 +216,11 @@ public class Game_Manager : MonoBehaviour {
             yield return null;
         }
 
+		MobileImputCanvas.SetActive(false);
+		GameInfoCanvas.SetActive(false);
+		FinishedRaceCanvas.SetActive(true);
 
-        //yield return new WaitForSeconds (TimeBetweenCongratulationAndResultBoard);
-            if (PlayerPrefs.GetString("Which_GameMode") == "OnlineMultiPlayer") { 
-               /* if (canvas_MainMenu) canvas_MainMenu.GoToOtherPageWithHisNumber(14);                               // Time for each car page
-                if (eventSystem) eventSystem.SetSelectedGameObject(buttonRestartGame_FirstSelectedGameObject);
-
-            GameObject gM_Photon = GameObject.Find("GM_Photon");
-            if (gM_Photon) gM_Photon.GetComponent<MCR.GameManager_MCR_Photon>().MCRMultiDisplayResult();*/
-
-            }  
-            else if (PlayerPrefs.GetString("Which_GameMode") == "Arcade"){
-                if (canvas_MainMenu) canvas_MainMenu.GoToOtherPageWithHisNumber(6);                               // Time for each car page
-                if (eventSystem) eventSystem.SetSelectedGameObject(buttonRestartGame_FirstSelectedGameObject);
-            }  
-            else if(PlayerPrefs.GetString("Which_GameMode") == "Championship"){
-                if (canvas_MainMenu) canvas_MainMenu.GoToOtherPageWithHisNumber(12);                               // Time for each car page
-                if (eventSystem) eventSystem.SetSelectedGameObject(buttonNextPage_FirstSelectedGameObjectChampionship);
-
-            } 
-        yield return null;
-        #endregion
+        yield return null; 
     }
 
 // --> Trial Mode is finished. Display result Page
@@ -586,4 +572,9 @@ public class Game_Manager : MonoBehaviour {
     {
         b_Pause = !b_Pause;
     }
+
+	public void WinningCar(Collider other)
+	{
+		winningCar = other.gameObject.GetComponent<CarController>();
+	}
 }
