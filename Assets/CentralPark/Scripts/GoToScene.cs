@@ -7,6 +7,13 @@ public class GoToScene : MonoBehaviour
 {
     public void Scene(int i)
     {
-        SceneManager.LoadScene(i);
+       Invoke(nameof(this.gotoSC), 2f);
+    }
+    
+    
+
+    public void gotoSC()
+    {
+        SceneManager.LoadScene(2);
     }
 }

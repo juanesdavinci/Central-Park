@@ -38,7 +38,7 @@ public class CarController : MonoBehaviour
     public float MaxSpeed = 10F;                     // car maximumu speed
     public float offsetSpeedDifficultyManager = 0;          // car offset speed. Set in Difficulty Manager
     public float offsetSpeedForMobile = 0;                  // car offset speed. Set in Game_Manager Manager
-    public float CarRotationSpeed = 1.5F;                       // car rotation speed
+    [SerializeField]private float CarRotationSpeed = 7F;                       // car rotation speed
     public float offsetRotationForMobile = 0;               // car offset rotation. Set in Game_Manager Manager
     private float Speed = 0;                        // current speed
     public Rigidbody rb;                                               // access car rigidbody component
@@ -289,6 +289,7 @@ public class CarController : MonoBehaviour
 
 
         MaxSpeed = 80;
+        CarRotationSpeed = 7F;
     }
 
     IEnumerator MCR_I_audioFadeIn(){
@@ -489,7 +490,7 @@ public class CarController : MonoBehaviour
         if (!b_UseSlidingSystem)
             MCR_carV1();
         //else
-         //   MCR_carV2();  
+        //   MCR_carV2();  
     }
     // --> Find angle
     float AngleDir(Vector3 _forward, Vector3 _targetDir, Vector3 _up)
@@ -777,11 +778,22 @@ public class CarController : MonoBehaviour
             {
                 Coin.Instance.AddCoin();
             }
+        }else if (other.CompareTag("nitro"))
+        {
+            ReachMaxRotationAcc = 0;
+            MaxSpeed *= 1.5f;
+            Force*= 1.5f;
+            other.gameObject.SetActive(false);
+            Invoke(nameof(this.ResetSpeed), 8f);
         }
-        
-
     }
 
+    private void ResetSpeed()
+    {
+        MaxSpeed /= 1.5f;
+        Force /= 1.5f;
+    }
+    
     void OnCollisionEnter(Collision collision)
     {
 
@@ -1089,8 +1101,8 @@ public class CarController : MonoBehaviour
                     }
 
                     // --> Spring force added for each wheel
-                    rb.AddForceAtPosition((RayCastWheels[i].transform.up * Slide_01 + Vector3.up * Slide_02) * (springforce2[i] + damperForce2[i]), RayCastWheels[i].transform.position, ForceMode.Force);
-                    Debug.DrawRay(RayCastWheels[i].transform.position, dir * dis, Color.red);
+                    //rb.AddForceAtPosition((RayCastWheels[i].transform.up * Slide_01 + Vector3.up * Slide_02) * (springforce2[i] + damperForce2[i]), RayCastWheels[i].transform.position, ForceMode.Force);
+                    //Debug.DrawRay(RayCastWheels[i].transform.position, dir * dis, Color.red);
 
                     if (Slide_02 > 0)
                         Debug.DrawRay(RayCastWheels[i].transform.position, (RayCastWheels[i].transform.up * Slide_01 + Vector3.up * Slide_02) * .25f, Color.cyan);
@@ -1197,7 +1209,7 @@ public class CarController : MonoBehaviour
 
                     if (!StopAcceleration)
                     {
-                        ReachMaxRotationAcc = Mathf.MoveTowards(ReachMaxRotationAcc, 1, Time.deltaTime/10);
+                        ReachMaxRotationAcc = Mathf.MoveTowards(ReachMaxRotationAcc, 1, Time.deltaTime*4);
                         if (!raceIsFinished && !b_CountdownActivate)
                         {
                             /*if (b_AutoAcceleration && b_MaxAccelerationAfterCountdown)

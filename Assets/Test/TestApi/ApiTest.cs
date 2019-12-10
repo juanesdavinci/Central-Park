@@ -18,10 +18,6 @@ public class ApiTest : MonoBehaviour
     public Text errorText;
     private bool sending;
 
-    [Header("Leadeboard")]
-    public int limit = 10;
-    public List<ApiUser> leaderboard;
-
     void Start()
     {
         
@@ -39,6 +35,9 @@ public class ApiTest : MonoBehaviour
 
     public void SaveUser()
     {
+        if(sending)
+            return;
+        
         usrname = this.username.text;
         loading.gameObject.SetActive(true);
         sending = true;
@@ -55,23 +54,11 @@ public class ApiTest : MonoBehaviour
             loading.gameObject.SetActive(true);
             errorText.gameObject.SetActive(true);
             errorText.text = "No se pudo conectar a la base de datos inténtelo de nuevo más tarde";
+            sending = false;
+
             //Do something.
             //This is triggered when HTTP request faild. That's also mean when don't have itnernet connection
         });
     }
 
-    public void GetLeaderboard()
-    {
-        CentralParkApiService.Instance.GetLeaderboard(this.limit, delegate (ApiLeaderboardResponse response)
-        {
-            //Success response
-            this.leaderboard = response.leaderboard;
-
-        }, delegate (Exception e)
-        {
-            Debug.LogError(e);
-            //Do something.
-            //This is triggered when HTTP request faild. That's also mean when don't have itnernet connection
-        });
-    }
 }

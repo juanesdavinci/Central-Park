@@ -82,7 +82,7 @@ public class CarControllerEditor : Editor {
 
 		playerNumber		= serializedObject.FindProperty ("playerNumber");
 
-		CarRotationSpeed	= serializedObject.FindProperty ("CarRotationSpeed");
+		//CarRotationSpeed	= serializedObject.FindProperty ("CarRotationSpeed");
 
 		impactVolumeMax		= serializedObject.FindProperty ("impactVolumeMax");
 		eulerAngleVelocity	= serializedObject.FindProperty ("eulerAngleVelocity");
@@ -212,14 +212,14 @@ public class CarControllerEditor : Editor {
 			EditorGUILayout.HelpBox("Car handling",MessageType.Info);
 			EditorGUILayout.BeginHorizontal();
 				EditorGUILayout.LabelField("Max Speed :",GUILayout.Width(145));
-				EditorGUILayout.Slider(MaxSpeed,1.5F,6F, new GUIContent (""));
+				EditorGUILayout.Slider(MaxSpeed,1.5F,100F, new GUIContent (""));
 			EditorGUILayout.EndHorizontal();
-
+/*
 			EditorGUILayout.BeginHorizontal();
 				EditorGUILayout.LabelField("Wheel steering reactivity",GUILayout.Width(145));
 				EditorGUILayout.Slider(CarRotationSpeed,1F,7F, new GUIContent (""));
 			EditorGUILayout.EndHorizontal();
-
+*/
 			EditorGUILayout.BeginHorizontal();
 				EditorGUILayout.LabelField("Car Rotation Speed :",GUILayout.Width(145));
 				EditorGUILayout.Slider(eulerAngleVelocity.FindPropertyRelative("y"),50F,150F, new GUIContent (""));
