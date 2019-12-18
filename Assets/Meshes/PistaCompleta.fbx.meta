@@ -32,6 +32,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Fence1
+    second: {fileID: 2100000, guid: 3ad91f4d1b88db54487d5d3cc43d58f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: b8b66885f978d6446b6ad36e6d744fe5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Grass
     second: {fileID: 2100000, guid: 962f84f999056d8449ef5024e0bc783c, type: 2}
   - first:
@@ -44,6 +54,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: MetalPaintBlack
     second: {fileID: 2100000, guid: bd9a93dd8bb570546b598b7e02896c07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Persiana
+    second: {fileID: 2100000, guid: 8bf31dee16a785549a3b1820d8b456ef, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -134,6 +149,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: terreno_lago_ma
     second: {fileID: 2100000, guid: 962f84f999056d8449ef5024e0bc783c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vidrios_Edificio_ma
+    second: {fileID: 2100000, guid: b8b66885f978d6446b6ad36e6d744fe5, type: 2}
   materials:
     importMaterials: 1
     materialName: 1

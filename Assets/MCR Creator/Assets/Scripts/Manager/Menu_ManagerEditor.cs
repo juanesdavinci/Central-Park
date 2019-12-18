@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(Menu_Manager))]
+//[CustomEditor(typeof(Menu_Manager))]
 public class Menu_ManagerEditor : Editor {
 	public bool 			SeeInspector = false;							// use to draw default Inspector
 	public bool 			b_CreatePage = false;							// use when a page is created
