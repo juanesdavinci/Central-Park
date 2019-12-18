@@ -101,7 +101,7 @@ public class FinishGameView : MonoBehaviour
         imagePath = Application.persistentDataPath + "/" + filename;
             
         yield return new WaitForSeconds(3);
-        new NativeShare().AddFile(imagePath).Share();
+        new NativeShare().AddFile(imagePath).SetText("https://play.google.com/store/apps/details?id=com.navvr.centralpark").Share();
 
 
         window.SetActive(true);
