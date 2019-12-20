@@ -127,6 +127,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Track
+    second: {fileID: 2100000, guid: f93c2361dacb4954c9e0d3d0e39d5b09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: TrackBorders
     second: {fileID: 2100000, guid: 9889012fbb7f0c5468a13af90ae692ee, type: 2}
   - first:
@@ -139,6 +144,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: muros_ma
     second: {fileID: 2100000, guid: faec2284d5f517c459ab6c149c475c6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__Track
+    second: {fileID: 2100000, guid: f93c2361dacb4954c9e0d3d0e39d5b09, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
