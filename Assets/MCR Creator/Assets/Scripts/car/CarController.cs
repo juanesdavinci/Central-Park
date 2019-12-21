@@ -784,7 +784,7 @@ public class CarController : MonoBehaviour
             MaxSpeed *= 1.5f;
             Force*= 1.5f;
             other.gameObject.SetActive(false);
-            Invoke(nameof(this.ResetSpeed), 8f);
+            Invoke(nameof(this.ResetSpeed), 12f);
         }
     }
 
