@@ -1,4 +1,4 @@
-﻿#if PHOTON_UNITY_NETWORKING
+﻿#if false
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;

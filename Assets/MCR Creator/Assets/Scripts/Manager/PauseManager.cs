@@ -50,4 +50,9 @@ public class PauseManager : MonoBehaviour {
 
 	}
 	// --> Find and Pause 		: 		Animations
+
+	public void CloseApp()
+	{
+		Application.Quit();
+	}
 }

@@ -21,7 +21,7 @@ public class Countdown : MonoBehaviour {
 	private AudioSource				_audio;												// AudioSource component
 	private Game_Manager	 		gameManager;                                        // access Game_Mananger component
 
-#if PHOTON_UNITY_NETWORKING
+#if false
     public MCR.MCRPhotonCountdown countdownTimer;
 #endif
 
@@ -69,7 +69,7 @@ public class Countdown : MonoBehaviour {
 	void F_Countdown (){
         if (PlayerPrefs.GetString("Which_GameMode") == "OnlineMultiPlayer")
         {
-#if PHOTON_UNITY_NETWORKING
+#if false
             if (countdownTimer == null)
             {
                 GameObject tmpObj = GameObject.Find("GM_Photon");

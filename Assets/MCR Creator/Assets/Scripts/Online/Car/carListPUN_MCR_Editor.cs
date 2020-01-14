@@ -1,5 +1,5 @@
 ﻿#if (UNITY_EDITOR)
-#if PHOTON_UNITY_NETWORKING
+#if false
 using UnityEngine;
 using System.Collections;
 using UnityEditor;

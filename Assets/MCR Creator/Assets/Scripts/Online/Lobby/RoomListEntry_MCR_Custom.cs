@@ -1,4 +1,4 @@
-﻿#if PHOTON_UNITY_NETWORKING
+﻿#if false
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;

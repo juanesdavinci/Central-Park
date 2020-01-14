@@ -1,4 +1,4 @@
-﻿#if PHOTON_UNITY_NETWORKING
+﻿#if false
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
